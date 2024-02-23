@@ -73,7 +73,7 @@ class NN:
         min_score = min(scores)
         best_candidates = [candidates[i] for i in range(len(candidates)) if scores[i] == min_score]
         return best_candidates[0]
-    def search(self, n: int):
+    def search(self, n: int, heuristic=True):
         tour = [1]
         edges = []
 
@@ -86,9 +86,12 @@ class NN:
                 break
 
             # # Выбираем следующую вершину на основе эвристики
-            s = self.heuristic_selection(i, candidates)
-            # s = min([self.graph.edges[i, j]['weight'] for j in candidates])
-            # s = [j for j in candidates if s == self.graph.edges[i, j]['weight']][0]
+            s = None
+            if heuristic:
+                s = self.heuristic_selection(i, candidates)
+            else:
+                s = min([self.graph.edges[i, j]['weight'] for j in candidates])
+                s = [j for j in candidates if s == self.graph.edges[i, j]['weight']][0]
             tour.append(s)
             edges.append((i, s, self.graph.edges[i, s]['weight']))
 
@@ -97,7 +100,7 @@ class NN:
             edges.append((last_edge[1], 1, self.graph.edges[last_edge[1], 1]['weight']))
             tour.append(tour[0])
 
-        print(edges)
+        # print(edges)
         # print("networkx:", nx.algorithms.approximation.traveling_salesman_problem(self.graph))
         return edges
 
