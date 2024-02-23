@@ -3,9 +3,9 @@ from tkinter import ttk
 import json
 from algo import NN
 from tkinter.messagebox import showinfo
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 
-class CustomUI:
+class UI:
     def __init__(self, master: tk.Tk, title: str):
         self.vertices_count = 0
         self.edges = list()
@@ -64,8 +64,6 @@ class CustomUI:
             weight += edges[i][2]
         root.update()
         showinfo("Search Result", f"Weight: {weight}")
-
-        
 
     def add_vertex(self, event):
         x, y = event.x, event.y
@@ -130,11 +128,11 @@ class CustomUI:
             for i in range(len(data["vertexes"])):
                 vertex = (data["vertexes"][i]["x"], data["vertexes"][i]["y"])
                 self.draw_vertex(vertex)
-            
+            print(len(data['edges']), 'sssssss')
             for i in range(len(data["edges"])):
                 edge = data["edges"][i]
                 self.draw_edge(edge["from"], edge["to"], edge["weight"])
 
 if __name__ == "__main__":
     root = tk.Tk()
-    gui = CustomUI(root, "Customized Nearest Neighbors Algorithm")
+    gui = UI(root, "Customized Nearest Neighbors Algorithm")
