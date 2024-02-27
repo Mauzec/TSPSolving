@@ -11,56 +11,6 @@ class NN:
         for edge in edges:
             self.graph.add_edge(edge['from'], edge['to'], weight=edge['weight'])
     
-    def two(self, tour, edges):
-        improved = True
-        n = len(tour)
-        while improved:
-            improved = False
-            for i in range(n):
-                for j in range(i + 1, n):
-                    new1 = (tour[i],tour[j])
-                    new2 = (tour[i+1],tour[(j+1)%n])
-                    cur1 = (tour[i], tour[i + 1])
-                    cur2 = (tour[j], tour[(j+1)%n])
-                    if not (self.graph.has_edge(*new1) and self.graph.has_edge(*new2)):
-                        continue
-                    if not (self.graph.has_edge(*cur2)):
-                        continue
-    
-                    cur_w = self.graph.edges[*cur1]['weight'] + self.graph.edges[*cur2]['weight']
-                    new_w = self.graph.edges[*new1]['weight'] + self.graph.edges[*new2]['weight']
-
-                    if new_w < cur_w:
-                        print("swapping edges", cur1, cur2, "with", new1, new2)
-                        tour[i + 1: j+1] = tour[i + 1: j+1][::-1]
-                        improved = True
-
-                        edges = [ (tour[i - 1], tour[i]) for i in range(n) ]
-        return tour, edges
-
-    def two_optimization(self,nedges):
-        edges = nedges[:]
-        improvement = True
-        i = 0
-        while improvement:
-            improvement = False
-            for i in range(len(edges) - 2):
-                for j in range(i + 2, len(edges)):
-                    if not(self.graph.has_edge(edges[i][1], edges[j][0])
-                        and self.graph.has_edge(edges[j][1], edges[i][0])):
-                        continue
-                    alter = (
-                        edges[i][2] + self.graph.edges[edges[i][1], edges[j][0]]['weight']
-                      + edges[j][2] + self.graph.edges[edges[j][1], edges[i][0]]['weight']
-                    )
-                    current = edges[i][2] + edges[j][2]
-                    if alter < current:
-                        edges[i + 1: j] = reversed[edges[i + 1 : j]]
-                        improvement = True
-                        print('improve!', alter)
-            i += 1
-        print('two:', i)
-        return edges
     def heuristic_selection(self, i, candidates):
         # Добавим эвристику для выбора следующей вершины
         weights = [self.graph.edges[i, j]['weight'] for j in candidates]
@@ -72,8 +22,9 @@ class NN:
         # Выбираем вершину с наилучшим комбинированным показателем
         min_score = min(scores)
         best_candidates = [candidates[i] for i in range(len(candidates)) if scores[i] == min_score]
-        return best_candidates[0]
-    def search(self, n: int, heuristic=True):
+        return random.choice(best_candidates)
+    
+    def search(self, n: int, heuristic=False, tour_return=False):
         tour = [1]
         edges = []
 
@@ -102,22 +53,8 @@ class NN:
 
         # print(edges)
         # print("networkx:", nx.algorithms.approximation.traveling_salesman_problem(self.graph))
+        if tour_return: return tour
         return edges
-
-    
-    def total_weight(self, edges):
-        return sum(edge[2] for edge in edges)
-
-    
-    def construct_edges(self, tour):
-        edges = []
-        for i in range(len(tour) - 1):
-            try:
-                edges.append((tour[i], tour[i + 1], self.graph.edges[tour[i], tour[i + 1]]['weight']))
-            except:
-                return []
-        return edges
-
 
 if __name__ == '__main__':
     nn = NN()
