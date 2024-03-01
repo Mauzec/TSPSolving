@@ -49,9 +49,9 @@ class NN:
 
         # print(edges)
         # print("networkx:", nx.algorithms.approximation.traveling_salesman_problem(self.graph))
-        if (tour[-1] != tour[0]) and (tour[-1], tour[0]) in self.graph.edges:
-            edges.append((tour[-1], tour[0], self.graph[tour[-1]][tour[0]]['weight']))
-            tour.append(tour[0])
+        if (tour[-1] != 1) and (tour[-1], 1) in self.graph.edges:
+            edges.append((tour[-1], 1, self.graph[tour[-1]][1]['weight']))
+            tour.append(1)
         if tour_return: return tour
         return edges
 

@@ -48,9 +48,11 @@ class UI:
     def search(self):
         sa = SA()
         sa.add_edges_nodes(self.vertices_count, self.edges)
-        best_sol, weight, edges = sa.anneal(self.vertices_count)
-            
-        print(best_sol, weight)
+        best_tour, weight, edges, _, _ = sa.anneal(self.vertices_count)
+        print("Best Solution:", best_tour)
+        print("Best Cost:", weight)
+        # print("Best Edges", best_edges)
+
         self.canvas.delete('all')
         self.vertices_count = 0
         self.edges.clear()

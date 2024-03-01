@@ -21,12 +21,13 @@ def gamilton_generation(number: int)->None:
         k += 1
         
     
-    with open(f"tests/test_{number}.json", "w") as file:
+    with open(f"test_graphs/test_{number}.json", "w") as file:
         json.dump(data, file)
 
 
 def main():
-    for i in range(100):
+    
+    for i in range(0, 400):
         gamilton_generation(i + 1)
 
 if __name__ == "__main__":
