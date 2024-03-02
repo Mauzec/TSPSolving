@@ -1,0 +1,1 @@
+{"num_vertex": 2, "vertexes": [{"x": 231, "y": 247}, {"x": 163, "y": 260}], "edges": [{"from": 1, "to": 2, "weight": 88}, {"from": 2, "to": 1, "weight": 77}]}

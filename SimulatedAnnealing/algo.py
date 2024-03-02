@@ -75,7 +75,7 @@ class SA:
                 cost += self.graph[tour[-1]][tour[0]]['weight']
             else: return -1
         return cost
-    def anneal(self, n, init_temp=1, stop_temp=0.00001,cooling_rate=0.9999, iterations=100_000):
+    def anneal(self, n, init_temp=1, stop_temp=0.00001,cooling_rate=0.9999, iterations=100_0000):
         curr_tour = self.initial_solution(n)
         
         assert len(curr_tour) == n
