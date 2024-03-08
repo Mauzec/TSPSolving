@@ -27,7 +27,7 @@ def gamilton_generation(number: int)->None:
 
 def main():
     
-    for i in range(0, 400):
+    for i in range(5, 400):
         gamilton_generation(i + 1)
 
 if __name__ == "__main__":
