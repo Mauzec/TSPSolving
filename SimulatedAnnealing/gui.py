@@ -132,4 +132,4 @@ class UI:
 
 if __name__ == "__main__":
     root = tk.Tk()
-    gui = UI(root, "Customized Nearest Neighbors Algorithm")
+    gui = UI(root, "SA")

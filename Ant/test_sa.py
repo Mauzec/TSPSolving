@@ -75,15 +75,14 @@ class SA:
                 cost += self.graph[tour[-1]][tour[0]]['weight']
             else: return -1
         return cost
-    def anneal(self, n, init_temp=1, stop_temp=0.00001,cooling_rate=0.9999, iterations=10000):
-        curr_tour = self.initial_solution(n)
-        
-        assert len(curr_tour) == n
-        curr_cost = self.calculate_cost(curr_tour)
-        while curr_cost == -1:
+    def anneal(self, n, init_temp=1, stop_temp=0.00001,cooling_rate=0.9999, iterations=5000):
+        curr_tour = []
+        curr_cost = -1
+        while len(curr_tour) != n or curr_cost == -1:
             curr_tour = self.initial_solution(n)
             curr_cost = self.calculate_cost(curr_tour)
         assert curr_cost != -1
+        assert len(curr_tour) == n
         best_tour = curr_tour
         best_edges = [(curr_tour[i], curr_tour[i+1], self.graph[curr_tour[i]][curr_tour[i+1]]['weight']) for i in range(len(curr_tour) - 1)]
         best_temp = 0
